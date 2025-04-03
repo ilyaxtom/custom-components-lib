@@ -1,0 +1,172 @@
+// Primary colors
+$primary-color: #1976d2;
+$primary-hover-bg: rgba(25, 118, 210, 0.1);
+$primary-active-bg: rgba(25, 118, 210, 0.2);
+$primary-contained-hover: #165fa6;
+$primary-contained-active: rgba(25, 118, 210, 0.8);
+
+// Secondary colors
+$secondary-color: #9c27b0;
+$secondary-hover-bg: rgba(156, 39, 176, 0.1);
+$secondary-active-bg: rgba(156, 39, 176, 0.2);
+$secondary-contained-hover: #7b1fa2;
+$secondary-contained-active: rgba(156, 39, 176, 0.8);
+
+// Success colors
+$success-color: #2e7d32;
+$success-hover-bg: rgba(46, 125, 50, 0.1);
+$success-active-bg: rgba(46, 125, 50, 0.2);
+$success-contained-hover: #236126;
+$success-contained-active: rgba(46, 125, 50, 0.8);
+
+// Error colors
+$error-color: #d32f2f;
+$error-hover-bg: rgba(211, 47, 47, 0.1);
+$error-active-bg: rgba(211, 47, 47, 0.2);
+$error-contained-hover: #aa2424;
+$error-contained-active: rgba(211, 47, 47, 0.8);
+
+// Disabled styles
+$disabled-color: rgba(0, 0, 0, 0.26);
+$disabled-bg: rgba(0, 0, 0, 0.1);
+
+@mixin button-styles {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+  position: relative;
+  box-sizing: border-box;
+  outline: 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  border: 0;
+  border-radius: 5px;
+  transition: background-color 250ms;
+}
+
+@mixin disabled {
+  color: $disabled-color;
+  border: none;
+  background-color: $disabled-bg;
+
+  &:hover, &:active {
+    background-color: $disabled-bg;
+  }
+}
+
+@mixin hover-active($hover, $active) {
+  &:hover {
+    background-color: $hover;
+  }
+
+  &:active {
+    background-color: $active;
+  }
+}
+
+@mixin variant-styles(
+  $main-color,
+  $hover-color,
+  $active-color,
+  $contained-hover,
+  $contained-active
+) {
+  &.text {
+    color: $main-color;
+    background-color: transparent;
+    @include hover-active($hover-color, $active-color);
+
+    &.disabled {
+      @include disabled;
+      background-color: transparent;
+    }
+  }
+
+  &.outlined {
+    color: $main-color;
+    background-color: transparent;
+    border: 1px solid $main-color;
+    @include hover-active($hover-color, $active-color);
+
+    &.disabled {
+      @include disabled;
+      border: 1px solid $disabled-color;
+    }
+  }
+
+  &.contained {
+    color: #ffffff;
+    background-color: $main-color;
+    @include hover-active($contained-hover, $contained-active);
+
+    &.disabled {
+      @include disabled;
+    }
+  }
+}
+
+.button {
+  @include button-styles;
+
+  // Primary Buttons
+  @include variant-styles(
+    $primary-color,
+    $primary-hover-bg,
+    $primary-active-bg,
+    $primary-contained-hover,
+    $primary-contained-active
+  );
+
+  // Secondary Buttons
+  &.secondary {
+    @include variant-styles(
+      $secondary-color,
+      $secondary-hover-bg,
+      $secondary-active-bg,
+      $secondary-contained-hover,
+      $secondary-contained-active
+    );
+  }
+
+  // Success buttons
+  &.success {
+    @include variant-styles(
+      $success-color,
+      $success-hover-bg,
+      $success-active-bg,
+      $success-contained-hover,
+      $success-contained-active
+    );
+  }
+
+  // Error buttons
+  &.error {
+    @include variant-styles(
+      $error-color,
+      $error-hover-bg,
+      $error-active-bg,
+      $error-contained-hover,
+      $error-contained-active
+    );
+  }
+
+  // Sizes
+  &.small {
+    padding: 6px 10px;
+  }
+
+  &.medium {
+    padding: 9px 15px;
+  }
+
+  &.large {
+    padding: 12px 20px;
+  }
+}

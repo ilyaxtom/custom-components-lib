@@ -1,7 +1,7 @@
-import {ModuleOptions} from 'webpack';
-import {buildBabelLoader} from './babel/buildBabelLoader';
-import {BuildOptions} from "./types/types";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import { ModuleOptions } from 'webpack';
+import { buildBabelLoader } from './babel/buildBabelLoader';
+import { BuildOptions } from './types/types';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     const isDev = options.mode === 'development';
@@ -14,22 +14,21 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
             modules: {
                 namedExport: false,
                 exportLocalsConvention: 'as-is',
-                localIdentName: isDev ? '[path][name]__local' : '[hash:base64:8]',
-            }
-        }
-    }
+                localIdentName: isDev
+                    ? '[path][name]__local[hash:base64:8]'
+                    : '[hash:base64:8]',
+            },
+        },
+    };
 
     const scssLoader = {
         test: /\.s[ac]ss$/i,
         use: [
             isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
             cssLoaderWithModules,
-            "sass-loader",
-        ]
-    }
+            'sass-loader',
+        ],
+    };
 
-    return [
-        scssLoader,
-        babelLoader,
-    ]
+    return [scssLoader, babelLoader];
 }
