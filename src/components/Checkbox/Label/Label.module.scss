@@ -1,0 +1,17 @@
+.label {
+  &.small {
+    margin-left: 25px;
+  }
+
+  &.medium {
+    margin-left: 35px;
+  }
+
+  &.large {
+    margin-left: 45px;
+  }
+
+  &.disabled {
+    color: #aeaeae;
+  }
+}

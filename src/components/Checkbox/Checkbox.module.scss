@@ -1,0 +1,127 @@
+@mixin checkmark-styles($left, $top, $width, $height, $borderWidth) {
+  left: $left;
+  top: $top;
+  width: $width;
+  height: $height;
+  border: solid #fff;
+  border-width: 0 $borderWidth $borderWidth 0;
+  transform: rotate(45deg);
+}
+
+.container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+
+  //&.disabled:hover {
+  //  .input ~ .checkmark {
+  //    background-color: #aeaeae;
+  //  }
+  //}
+
+  &.small {
+    font-size: 16px;
+
+    .checkmark {
+      width: 18px;
+      height: 18px;
+
+        &:after {
+          @include checkmark-styles(4px, 0px, 5px, 10px, 2px);
+        }
+    }
+
+  }
+
+  &.medium {
+    font-size: 22px;
+
+    .checkmark {
+      width: 24px;
+      height: 24px;
+
+      &:after {
+        @include checkmark-styles(6px, 1px, 5px, 12px, 3px);
+      }
+    }
+  }
+
+  &.large {
+    font-size: 28px;
+
+    .checkmark {
+      width: 30px;
+      height: 30px;
+
+      &:after {
+        @include checkmark-styles(7px, 0px, 8px, 17px, 4px);
+      }
+    }
+  }
+
+  .input:checked ~ .checkmark {
+    &.blue {
+      background-color: #1976d2;
+      border-color: #1976d2;
+    }
+
+    &.purple {
+      background-color: #7f19d2;
+      border-color: #7f19d2;
+    }
+
+    &.green {
+      background-color: #16a51f;
+      border-color: #16a51f;
+    }
+
+    &.gray {
+      background-color: #5e5e60;
+      border-color: #5e5e60;
+    }
+
+    &.pink {
+      background-color: #b60c88;
+      border-color: #b60c88;
+    }
+  }
+
+  &.disabled {
+    .checkmark {
+      background-color: #aeaeae;
+    }
+
+    .input:checked ~ .checkmark {
+      background-color: #aeaeae;
+    }
+  }
+
+  .input:checked ~ .checkmark:after {
+    display: block;
+  }
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+  //background-color: #eee;
+  border: 2px solid #eee;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
