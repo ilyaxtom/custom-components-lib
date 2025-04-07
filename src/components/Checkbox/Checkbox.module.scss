@@ -8,14 +8,46 @@
   transform: rotate(45deg);
 }
 
-.container {
-  display: block;
+@mixin checkbox-container-sizes($a) {
+  width: $a;
+  height: $a;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.checkboxContainer {
   position: relative;
+
+  &.small {
+    @include checkbox-container-sizes(18px);
+  }
+
+  &.medium {
+    @include checkbox-container-sizes(24px);
+  }
+
+  &.large {
+    @include checkbox-container-sizes(30px);
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  column-gap: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   font-size: 22px;
 
   &.small {
-    font-size: 16px;
 
     .checkmark {
       width: 18px;
@@ -29,7 +61,6 @@
   }
 
   &.medium {
-    font-size: 22px;
 
     .checkmark {
       width: 24px;
@@ -42,7 +73,6 @@
   }
 
   &.large {
-    font-size: 28px;
 
     .checkmark {
       width: 30px;

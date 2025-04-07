@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Checkbox.module.scss';
 import classNames from 'classnames';
-import Label from './Label';
+import Label from '../Label';
 
 interface CheckboxProps {
     checked?: boolean;
@@ -23,17 +23,17 @@ const Checkbox: React.FC<CheckboxProps> = ({
     color = 'blue',
 }) => {
     const [isChecked, setIsChecked] = React.useState(false);
-    const isControlled = checked !== undefined;
+    const isControlled = onChange !== undefined;
     const isDisabled = disabled !== undefined;
 
     const isCheckboxChecked = isControlled ? checked : isChecked;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.checked;
-        if (!isControlled) {
-            setIsChecked(value);
+        if (isControlled) {
+            onChange?.(e);
         }
-        onChange?.(e);
+        setIsChecked(value);
     };
 
     const containerClasses = classNames(
@@ -43,17 +43,26 @@ const Checkbox: React.FC<CheckboxProps> = ({
     );
 
     const checkmarkClasses = classNames(classes.checkmark, classes[color]);
+    const checkboxContainerClasses = classNames(
+        classes.checkboxContainer,
+        classes[size]
+    );
 
     return (
-        <label className={containerClasses}>
-            <input
-                type="checkbox"
-                className={classes.input}
-                checked={isCheckboxChecked}
-                onChange={handleChange}
-                disabled={isDisabled}
-            />
-            <span className={checkmarkClasses}></span>
+        <div className={classes.wrapper}>
+            <div className={checkboxContainerClasses}>
+                <label className={containerClasses}>
+                    <input
+                        type="checkbox"
+                        className={classes.input}
+                        checked={isCheckboxChecked}
+                        onChange={handleChange}
+                        disabled={isDisabled}
+                    />
+                    <span className={checkmarkClasses}></span>
+                </label>
+            </div>
+
             {label && (
                 <Label
                     text={label}
@@ -62,7 +71,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
                     size={size}
                 />
             )}
-        </label>
+        </div>
     );
 };
 
