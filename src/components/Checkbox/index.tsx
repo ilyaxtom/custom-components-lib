@@ -3,6 +3,8 @@ import classes from './Checkbox.module.scss';
 import classNames from 'classnames';
 import Label from '../Label';
 
+// Todo: Fix checked, disabled styles
+
 interface CheckboxProps {
     checked?: boolean;
     label?: string;
@@ -10,7 +12,7 @@ interface CheckboxProps {
     size?: 'small' | 'medium' | 'large';
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     disabled?: boolean;
-    color?: 'blue' | 'purple' | 'green' | 'gray' | 'pink';
+    color?: 'blue' | 'purple' | 'green' | 'grey' | 'pink';
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -22,7 +24,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
     disabled,
     color = 'blue',
 }) => {
-    const [isChecked, setIsChecked] = React.useState(false);
+    const [isChecked, setIsChecked] = React.useState(Boolean(checked));
     const isControlled = onChange !== undefined;
     const isDisabled = disabled !== undefined;
 
@@ -47,9 +49,13 @@ const Checkbox: React.FC<CheckboxProps> = ({
         classes.checkboxContainer,
         classes[size]
     );
+    const wrapperClasses = classNames(
+        classes.wrapper,
+        isDisabled && classes.disabled
+    );
 
     return (
-        <div className={classes.wrapper}>
+        <div className={wrapperClasses}>
             <div className={checkboxContainerClasses}>
                 <label className={containerClasses}>
                     <input

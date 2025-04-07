@@ -17,6 +17,10 @@
   display: flex;
   align-items: center;
   column-gap: 12px;
+
+  &.disabled {
+    filter: grayscale(100%) brightness(80%) opacity(60%);
+  }
 }
 
 .checkboxContainer {
@@ -100,7 +104,7 @@
       border-color: #16a51f;
     }
 
-    &.gray {
+    &.grey {
       background-color: #5e5e60;
       border-color: #5e5e60;
     }
@@ -111,15 +115,17 @@
     }
   }
 
-  &.disabled {
-    .checkmark {
-      background-color: #aeaeae;
-    }
-
-    .input:checked ~ .checkmark {
-      background-color: #aeaeae;
-    }
-  }
+  //&.disabled {
+  //  .checkmark {
+  //    background-color: #aeaeae;
+  //    border-color: #aeaeae;
+  //  }
+  //
+  //  .input:checked ~ .checkmark {
+  //    background-color: #aeaeae;
+  //    border-color: #aeaeae;
+  //  }
+  //}
 
   .input:checked ~ .checkmark:after {
     display: block;
