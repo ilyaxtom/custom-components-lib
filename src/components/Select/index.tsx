@@ -8,6 +8,8 @@ interface SelectProps {
     options?: Option[];
     selectedId?: number;
     onChange?: (id: number) => void;
+    label?: string;
+    helperText?: string;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -15,6 +17,8 @@ const Select: React.FC<SelectProps> = ({
     options,
     selectedId,
     onChange,
+    label,
+    helperText,
 }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [selected, setSelected] = React.useState<number | null>(
@@ -61,13 +65,16 @@ const Select: React.FC<SelectProps> = ({
     return (
         <div ref={ref} className={selectGroupClasses} onClick={toggleDropdown}>
             <div className={selectClasses}>{selectedTitle}</div>
-            <label className={classes.label}>Age</label>
+            {label && <label className={classes.label}>{label}</label>}
             {isOpen && (
                 <Dropdown
                     options={options}
                     selectFn={selectOption}
                     selectedId={selectedId}
                 />
+            )}
+            {helperText && (
+                <div className={classes.helperText}>{helperText}</div>
             )}
         </div>
     );
