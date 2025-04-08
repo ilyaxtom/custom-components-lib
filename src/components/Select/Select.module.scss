@@ -20,6 +20,15 @@ $label-color: #666666;
       background-color: transparent;
       height: 52px;
 
+      &.small {
+        padding: 8px 32px 8px 14px;
+        height: 36px;
+      }
+
+      &.small + .label {
+        top: 10px;
+      }
+
       &:hover {
         border-color: $primary-color;
       }
@@ -48,6 +57,19 @@ $label-color: #666666;
       background-color: transparent;
       height: 44px;
 
+      &.small {
+        padding: 1px 24px 5px 0;
+        height: 25px;
+
+        &.focus + .label, &.valid + .label {
+          top: -13px;
+        }
+      }
+
+      &.small + .label {
+        top: 0;
+      }
+
       &:hover {
         border-bottom: 2px solid $primary-color;
       }
@@ -75,6 +97,11 @@ $label-color: #666666;
       border-radius: 5px 5px 0 0;
       background-color: $background-filled;
       height: 52px;
+
+      &.small {
+        padding: 23px 32px 8px 12px;
+        height: 48px;
+      }
 
       &:hover {
         border-bottom: 2px solid $primary-color;

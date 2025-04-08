@@ -10,6 +10,7 @@ interface SelectProps {
     onChange?: (id: number) => void;
     label?: string;
     helperText?: string;
+    size?: 'small' | 'standard';
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -19,6 +20,7 @@ const Select: React.FC<SelectProps> = ({
     onChange,
     label,
     helperText,
+    size,
 }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [selected, setSelected] = React.useState<number | null>(
@@ -59,7 +61,8 @@ const Select: React.FC<SelectProps> = ({
     const selectClasses = classNames(
         classes.select,
         selectedTitle.length !== 0 && classes.valid,
-        isFocused && classes.focus
+        isFocused && classes.focus,
+        size === 'small' && classes.small
     );
 
     return (
