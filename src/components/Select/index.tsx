@@ -12,6 +12,7 @@ interface SelectProps {
     label?: string;
     helperText?: string;
     size?: 'small' | 'standard';
+    disabled?: boolean;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -22,7 +23,9 @@ const Select: React.FC<SelectProps> = ({
     label,
     helperText,
     size,
+    disabled,
 }) => {
+    const isDisabled = disabled !== undefined;
     const [isOpen, setIsOpen] = React.useState(false);
     const [selected, setSelected] = React.useState<number | null>(
         selectedId ?? null
@@ -47,6 +50,7 @@ const Select: React.FC<SelectProps> = ({
     }, []);
 
     const toggleDropdown = () => {
+        if (isDisabled) return;
         setIsOpen(!isOpen);
         setIsFocused(true);
     };
@@ -58,21 +62,33 @@ const Select: React.FC<SelectProps> = ({
         onChange?.(id);
     };
 
-    const selectGroupClasses = `${classes.selectGroup} ${classes[variant]}`;
+    const selectGroupClasses = `${classes.selectGroup} ${classes[variant]} ${classes.disabled}`;
     const selectClasses = classNames(
         classes.select,
         selectedTitle.length !== 0 && classes.valid,
         isFocused && classes.focus,
         size === 'small' && classes.small
     );
+    const labelClasses = classNames(
+        classes.label,
+        isDisabled && classes.disabled
+    );
+    const iconClasses = classNames(
+        classes.inputIcon,
+        isDisabled && classes.disabled
+    );
+    const helperTextClasses = classNames(
+        classes.helperText,
+        isDisabled && classes.disabled
+    );
 
     return (
         <div ref={ref} className={selectGroupClasses} onClick={toggleDropdown}>
             <div className={selectClasses}>
                 <span className={classes.inputText}>{selectedTitle}</span>
-                <GoTriangleDown className={classes.inputIcon} />
+                <GoTriangleDown className={iconClasses} />
             </div>
-            {label && <label className={classes.label}>{label}</label>}
+            {label && <label className={labelClasses}>{label}</label>}
             {isOpen && (
                 <Dropdown
                     options={options}
@@ -81,7 +97,7 @@ const Select: React.FC<SelectProps> = ({
                 />
             )}
             {helperText && (
-                <div className={classes.helperText}>{helperText}</div>
+                <div className={helperTextClasses}>{helperText}</div>
             )}
         </div>
     );
