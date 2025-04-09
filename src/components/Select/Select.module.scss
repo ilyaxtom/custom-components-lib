@@ -5,6 +5,17 @@ $background-white: #ffffff;
 $background-filled: #f0f0f0;
 $label-color: #666666;
 
+@mixin small-size($pt, $pr, $pb, $pl, $height, $top) {
+  &.small {
+    padding: $pt $pr $pb $pl;
+    height: $height;
+
+    &.focus + .label, &.valid + .label {
+      top: $top;
+    }
+  }
+}
+
 .selectGroup {
   display: inline-flex;
   flex-direction: column;
@@ -14,16 +25,13 @@ $label-color: #666666;
 
   &.outlined {
     .select {
-      padding: 16px 32px 16px 14px;
+      padding: 16px 20px 16px 14px;
       border: 1px solid $border-color;
       border-radius: 5px;
       background-color: transparent;
       height: 52px;
 
-      &.small {
-        padding: 8px 32px 8px 14px;
-        height: 36px;
-      }
+      @include small-size(8px, 20px, 8px, 14px, 36px, -7px);
 
       &.small + .label {
         top: 10px;
@@ -51,20 +59,13 @@ $label-color: #666666;
 
   &.standard {
     .select {
-      padding: 20px 24px 5px 0;
+      padding: 20px 20px 5px 0;
       border: none;
       border-bottom: 1px solid $border-color;
       background-color: transparent;
       height: 44px;
 
-      &.small {
-        padding: 1px 24px 5px 0;
-        height: 25px;
-
-        &.focus + .label, &.valid + .label {
-          top: -13px;
-        }
-      }
+      @include small-size(1px, 20px, 5px, 0, 25px, -13px);
 
       &.small + .label {
         top: 0;
@@ -91,17 +92,14 @@ $label-color: #666666;
 
   &.filled {
     .select {
-      padding: 25px 32px 8px 12px;
+      padding: 20px 20px 15px 12px;
       border: none;
       border-bottom: 1px solid $border-color;
       border-radius: 5px 5px 0 0;
       background-color: $background-filled;
       height: 52px;
 
-      &.small {
-        padding: 23px 32px 8px 12px;
-        height: 48px;
-      }
+      @include small-size(23px, 20px, 15px, 12px, 48px, 8px);
 
       &:hover {
         border-bottom: 2px solid $primary-color;
@@ -113,6 +111,10 @@ $label-color: #666666;
 
       &.focus + .label, &.valid + .label {
         top: 8px;
+      }
+
+      .inputText {
+        padding-top: 10px;
       }
     }
 
@@ -131,20 +133,17 @@ $label-color: #666666;
   outline: none;
   color: $primary-color;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
 
-  background-image:
-          linear-gradient(45deg, transparent 50%, #757575 50%),
-          linear-gradient(135deg, #757575 50%, transparent 50%);
-  background-position:
-          calc(100% - 20px) calc(1em + 6px),
-          calc(100% - 15px) calc(1em + 6px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
+  .inputIcon {
+    transition: 0.2s ease;
+  }
 
   &.focus {
-    background-image:
-            linear-gradient(135deg, transparent 50%, #757575 50%),
-            linear-gradient(45deg, #757575 50%, transparent 50%);
+    .inputIcon {
+      transform: rotate(180deg);
+    }
   }
 
   &.focus + .label {
@@ -154,6 +153,10 @@ $label-color: #666666;
   &.focus + .label, &.valid + .label {
     transform: scale(0.75);
   }
+}
+
+.inputText {
+  flex: 1 1 auto;
 }
 
 .label {

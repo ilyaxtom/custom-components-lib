@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useMemo } from 'react';
 import classes from './Select.module.scss';
 import Dropdown, { Option } from './Dropdown';
 import classNames from 'classnames';
+import { GoTriangleDown } from 'react-icons/go';
 
 interface SelectProps {
     variant?: 'outlined' | 'filled' | 'standard';
@@ -67,7 +68,10 @@ const Select: React.FC<SelectProps> = ({
 
     return (
         <div ref={ref} className={selectGroupClasses} onClick={toggleDropdown}>
-            <div className={selectClasses}>{selectedTitle}</div>
+            <div className={selectClasses}>
+                <span className={classes.inputText}>{selectedTitle}</span>
+                <GoTriangleDown className={classes.inputIcon} />
+            </div>
             {label && <label className={classes.label}>{label}</label>}
             {isOpen && (
                 <Dropdown
