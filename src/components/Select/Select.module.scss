@@ -67,6 +67,16 @@ $error-color: #c54942;
         }
       }
     }
+
+    &.error {
+      .select {
+        border-color: $error-color;
+
+        &:hover {
+          border-color: $error-color;
+        }
+      }
+    }
   }
 
   &.standard {
@@ -107,6 +117,16 @@ $error-color: #c54942;
 
         &:hover {
           border-bottom: 1px solid $disabled-color;
+        }
+      }
+    }
+
+    &.error {
+      .select {
+        border-color: $error-color;
+
+        &:hover {
+          border-bottom: 2px solid $error-color;
         }
       }
     }
@@ -154,6 +174,16 @@ $error-color: #c54942;
         }
       }
     }
+
+    &.error {
+      .select {
+        border-color: $error-color;
+
+        &:hover {
+          border-bottom: 2px solid $error-color;
+        }
+      }
+    }
   }
 }
 
@@ -178,6 +208,10 @@ $error-color: #c54942;
     color: $focus-color;
   }
 
+  &.focus + .label.error {
+    color: $error-color;
+  }
+
   &.focus + .label, &.valid + .label {
     transform: scale(0.75);
   }
@@ -194,6 +228,10 @@ $error-color: #c54942;
   &.disabled {
     color: $disabled-color;
   }
+
+  &.error {
+    color: $error-color;
+  }
 }
 
 .label {
@@ -209,6 +247,10 @@ $error-color: #c54942;
   &.disabled {
     color: $disabled-color;
   }
+
+  &.error {
+    color: $error-color;
+  }
 }
 
 .helperText {
@@ -218,5 +260,9 @@ $error-color: #c54942;
 
   &.disabled {
     color: $disabled-color;
+  }
+
+  &.error {
+    color: $error-color;
   }
 }

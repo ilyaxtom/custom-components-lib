@@ -13,6 +13,7 @@ interface SelectProps {
     helperText?: string;
     size?: 'small' | 'standard';
     disabled?: boolean;
+    error?: boolean;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -24,8 +25,10 @@ const Select: React.FC<SelectProps> = ({
     helperText,
     size,
     disabled,
+    error,
 }) => {
     const isDisabled = disabled !== undefined;
+    const isError = error !== undefined;
     const [isOpen, setIsOpen] = React.useState(false);
     const [selected, setSelected] = React.useState<number | null>(
         selectedId ?? null
@@ -62,7 +65,12 @@ const Select: React.FC<SelectProps> = ({
         onChange?.(id);
     };
 
-    const selectGroupClasses = `${classes.selectGroup} ${classes[variant]} ${classes.disabled}`;
+    const selectGroupClasses = classNames(
+        classes.selectGroup,
+        classes[variant],
+        isDisabled && classes.disabled,
+        isError && classes.error
+    );
     const selectClasses = classNames(
         classes.select,
         selectedTitle.length !== 0 && classes.valid,
@@ -71,15 +79,18 @@ const Select: React.FC<SelectProps> = ({
     );
     const labelClasses = classNames(
         classes.label,
-        isDisabled && classes.disabled
+        isDisabled && classes.disabled,
+        isError && classes.error
     );
     const iconClasses = classNames(
         classes.inputIcon,
-        isDisabled && classes.disabled
+        isDisabled && classes.disabled,
+        isError && classes.error
     );
     const helperTextClasses = classNames(
         classes.helperText,
-        isDisabled && classes.disabled
+        isDisabled && classes.disabled,
+        isError && classes.error
     );
 
     return (
