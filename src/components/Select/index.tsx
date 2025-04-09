@@ -3,6 +3,8 @@ import classes from './Select.module.scss';
 import Dropdown, { Option } from './Dropdown';
 import classNames from 'classnames';
 import { GoTriangleDown } from 'react-icons/go';
+import SelectLabel from './SelectLabel';
+import HelperText from '@/components/Select/HelperText';
 
 interface SelectProps {
     variant?: 'outlined' | 'filled' | 'standard';
@@ -14,6 +16,7 @@ interface SelectProps {
     size?: 'small' | 'standard';
     disabled?: boolean;
     error?: boolean;
+    required?: boolean;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -26,6 +29,7 @@ const Select: React.FC<SelectProps> = ({
     size,
     disabled,
     error,
+    required,
 }) => {
     const isDisabled = disabled !== undefined;
     const isError = error !== undefined;
@@ -77,18 +81,8 @@ const Select: React.FC<SelectProps> = ({
         isFocused && classes.focus,
         size === 'small' && classes.small
     );
-    const labelClasses = classNames(
-        classes.label,
-        isDisabled && classes.disabled,
-        isError && classes.error
-    );
     const iconClasses = classNames(
         classes.inputIcon,
-        isDisabled && classes.disabled,
-        isError && classes.error
-    );
-    const helperTextClasses = classNames(
-        classes.helperText,
         isDisabled && classes.disabled,
         isError && classes.error
     );
@@ -99,7 +93,14 @@ const Select: React.FC<SelectProps> = ({
                 <span className={classes.inputText}>{selectedTitle}</span>
                 <GoTriangleDown className={iconClasses} />
             </div>
-            {label && <label className={labelClasses}>{label}</label>}
+            {label && (
+                <SelectLabel
+                    text={label}
+                    isDisabled={isDisabled}
+                    isError={isError}
+                    required={required}
+                />
+            )}
             {isOpen && (
                 <Dropdown
                     options={options}
@@ -108,7 +109,11 @@ const Select: React.FC<SelectProps> = ({
                 />
             )}
             {helperText && (
-                <div className={helperTextClasses}>{helperText}</div>
+                <HelperText
+                    text={helperText}
+                    isDisabled={isDisabled}
+                    isError={isError}
+                />
             )}
         </div>
     );
