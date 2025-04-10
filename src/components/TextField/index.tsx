@@ -5,17 +5,21 @@ import Label from './TextFieldLabel';
 
 interface TextFieldProps {
     variant?: 'outlined' | 'filled' | 'standard';
+    type?: 'text' | 'number' | 'password';
     label?: string;
     helperText?: string;
     readonly?: boolean;
     value?: string;
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     required?: boolean;
     disabled?: boolean;
+    error?: boolean;
+    multiline?: boolean;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
     variant = 'outlined',
+    type = 'text',
     label,
     helperText,
     readonly,
@@ -23,11 +27,13 @@ const TextField: React.FC<TextFieldProps> = ({
     value,
     required,
     disabled,
+    error,
+    multiline,
 }) => {
     const isReadonly = readonly !== undefined;
     const [isFocused, setIsFocused] = useState(false);
     const fieldRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
     const isValid = Boolean(inputRef.current?.value);
 
     useEffect(() => {
@@ -48,12 +54,14 @@ const TextField: React.FC<TextFieldProps> = ({
         classes.field,
         classes[variant],
         isFocused && classes.focused,
-        disabled && classes.disabled
+        disabled && classes.disabled,
+        error && classes.error
     );
 
     const helperClasses = classnames(
         classes.helperText,
-        disabled && classes.disabled
+        disabled && classes.disabled,
+        error && classes.error
     );
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -69,14 +77,25 @@ const TextField: React.FC<TextFieldProps> = ({
     return (
         <div className={classes.wrapper}>
             <div ref={fieldRef} className={fieldClasses} onClick={toggleFocus}>
-                <input
-                    value={value}
-                    onChange={handleChange}
-                    ref={inputRef}
-                    className={classes.input}
-                    type="text"
-                    readOnly={isReadonly}
-                />
+                {multiline ? (
+                    <textarea
+                        rows={4}
+                        value={value}
+                        onChange={handleChange}
+                        ref={inputRef}
+                        className={classes.input}
+                        readOnly={readonly}
+                    />
+                ) : (
+                    <input
+                        value={value}
+                        onChange={handleChange}
+                        ref={inputRef}
+                        className={classes.input}
+                        type={type}
+                        readOnly={isReadonly}
+                    />
+                )}
                 {label && (
                     <Label
                         variant={variant}
@@ -85,6 +104,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         isValid={isValid}
                         required={required}
                         disabled={disabled}
+                        error={error}
                     />
                 )}
             </div>

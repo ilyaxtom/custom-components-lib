@@ -20,6 +20,7 @@ $error-color: #c54942;
   width: fit-content;
   min-width: 200px;
   box-sizing: border-box;
+  height: fit-content;
 
   &.disabled {
     border-color: $disabled-border;
@@ -31,10 +32,14 @@ $error-color: #c54942;
     border: 1px solid $border-color;
     border-radius: 5px;
     background-color: transparent;
-    height: 52px;
+    min-height: 52px;
 
     &:hover {
       border-color: $primary-color;
+    }
+
+    &.error, &.focused.error {
+      border-color: $error-color;
     }
 
     &.focused {
@@ -52,10 +57,14 @@ $error-color: #c54942;
     border-bottom: 1px solid $border-color;
     border-radius: 5px 5px 0 0;
     background-color: $background-filled;
-    height: 52px;
+    min-height: 52px;
 
     &:hover {
       border-bottom: 2px solid $primary-color;
+    }
+
+    &.error, &.focused.error {
+      border-color: $error-color;
     }
 
     &.focused {
@@ -76,10 +85,14 @@ $error-color: #c54942;
     border: none;
     border-bottom: 1px solid $border-color;
     background-color: transparent;
-    height: 44px;
+    min-height: 44px;
 
     &:hover {
       border-bottom: 2px solid $primary-color;
+    }
+
+    &.error, &.focused.error {
+      border-color: $error-color;
     }
 
     &.focused {
@@ -99,6 +112,7 @@ $error-color: #c54942;
   font-size: 1rem;
   padding: 0;
   width: 100%;
+  resize: none;
 }
 
 .helperText {

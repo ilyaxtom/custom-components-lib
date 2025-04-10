@@ -9,6 +9,7 @@ interface LabelProps {
     isValid: boolean;
     required?: boolean;
     disabled?: boolean;
+    error?: boolean;
 }
 
 const TextFieldLabel: React.FC<LabelProps> = ({
@@ -18,6 +19,7 @@ const TextFieldLabel: React.FC<LabelProps> = ({
     isValid,
     required,
     disabled,
+    error,
 }) => {
     const labelText = `${text}${required ? ' *' : ''}`;
 
@@ -26,7 +28,8 @@ const TextFieldLabel: React.FC<LabelProps> = ({
         classes[variant],
         isFocused && classes.focused,
         isValid && classes.valid,
-        disabled && classes.disabled
+        disabled && classes.disabled,
+        error && classes.error
     );
 
     return <label className={labelClasses}>{labelText}</label>;
