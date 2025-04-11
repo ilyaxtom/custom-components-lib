@@ -10,6 +10,7 @@ interface ButtonProps {
     disabled?: boolean;
     loading?: boolean;
     size?: 'small' | 'medium' | 'large';
+    onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
     color,
     loading,
     size = 'small',
+    onClick,
 }) => {
     const isDisabled = !(typeof disabled === 'undefined');
     const isLoading = !(typeof loading === 'undefined');
@@ -32,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
     );
 
     return (
-        <button className={classList}>
+        <button className={classList} onClick={() => onClick?.()}>
             {isLoading && <Loader />}
             {children}
         </button>
