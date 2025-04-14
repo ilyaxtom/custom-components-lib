@@ -3,21 +3,25 @@
     "outDir": "./dist/",
     "noImplicitAny": true,
     "module": "ESNext",
-    "target": "es5",
+    "target": "ES2017",
+    "lib": ["DOM", "ES2017"],
     "jsx": "react-jsx",
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["jest", "@testing-library/jest-dom"]
   },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS",
-      "esModuleInterop": true,
+      "esModuleInterop": true
     }
-  }
+  },
+  "include": ["src", "jest.setup.ts", "**/*.test.ts", "**/*.test.tsx"]
 }
