@@ -37,6 +37,7 @@ const TextField: React.FC<TextFieldProps> = ({
     textareaProps,
 }) => {
     const isReadonly = readonly !== undefined;
+    const isDisabled = Boolean(disabled);
     const [isFocused, setIsFocused] = useState(false);
     const fieldRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<TextFieldElements>(null);
@@ -71,6 +72,7 @@ const TextField: React.FC<TextFieldProps> = ({
     );
 
     const handleChange = (e: ChangeEvent<TextFieldElements>) => {
+        if (isDisabled) return;
         onChange?.(e);
     };
 
@@ -91,6 +93,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         ref={inputRef}
                         className={classes.input}
                         readOnly={readonly}
+                        disabled={isDisabled}
                         {...textareaProps}
                     />
                 ) : (
@@ -101,6 +104,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         className={classes.input}
                         type={type}
                         readOnly={isReadonly}
+                        disabled={isDisabled}
                         {...inputProps}
                     />
                 )}
