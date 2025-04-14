@@ -41,9 +41,9 @@ const Select: React.FC<SelectProps> = ({
     const ref = React.useRef<HTMLDivElement>(null);
 
     const selectedTitle = useMemo(() => {
-        const option = options.find((o) => o.id === selectedId);
+        const option = options.find((o) => o.id === selected);
         return option ? option.title : '';
-    }, [options, selectedId]);
+    }, [options, selected]);
 
     useEffect(() => {
         const handleClick = (event: Event) => {
@@ -88,7 +88,12 @@ const Select: React.FC<SelectProps> = ({
     );
 
     return (
-        <div ref={ref} className={selectGroupClasses} onClick={toggleDropdown}>
+        <div
+            data-testid="select"
+            ref={ref}
+            className={selectGroupClasses}
+            onClick={toggleDropdown}
+        >
             <div className={selectClasses}>
                 <span className={classes.inputText}>{selectedTitle}</span>
                 <GoTriangleDown className={iconClasses} />
@@ -105,7 +110,7 @@ const Select: React.FC<SelectProps> = ({
                 <Dropdown
                     options={options}
                     selectFn={selectOption}
-                    selectedId={selectedId}
+                    selectedId={selected}
                 />
             )}
             {helperText && (
