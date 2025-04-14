@@ -3,6 +3,8 @@ import classes from './TextField.module.scss';
 import classnames from 'classnames';
 import Label from './TextFieldLabel';
 
+type TextFieldElements = HTMLTextAreaElement & HTMLInputElement;
+
 interface TextFieldProps {
     variant?: 'outlined' | 'filled' | 'standard';
     type?: 'text' | 'number' | 'password';
@@ -10,11 +12,13 @@ interface TextFieldProps {
     helperText?: string;
     readonly?: boolean;
     value?: string;
-    onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    onChange?: (e: ChangeEvent<TextFieldElements>) => void;
     required?: boolean;
     disabled?: boolean;
     error?: boolean;
     multiline?: boolean;
+    inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+    textareaProps?: React.InputHTMLAttributes<HTMLTextAreaElement>;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -29,11 +33,13 @@ const TextField: React.FC<TextFieldProps> = ({
     disabled,
     error,
     multiline,
+    inputProps,
+    textareaProps,
 }) => {
     const isReadonly = readonly !== undefined;
     const [isFocused, setIsFocused] = useState(false);
     const fieldRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+    const inputRef = useRef<TextFieldElements>(null);
     const isValid = Boolean(inputRef.current?.value);
 
     useEffect(() => {
@@ -64,7 +70,7 @@ const TextField: React.FC<TextFieldProps> = ({
         error && classes.error
     );
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<TextFieldElements>) => {
         onChange?.(e);
     };
 
@@ -85,6 +91,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         ref={inputRef}
                         className={classes.input}
                         readOnly={readonly}
+                        {...textareaProps}
                     />
                 ) : (
                     <input
@@ -94,6 +101,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         className={classes.input}
                         type={type}
                         readOnly={isReadonly}
+                        {...inputProps}
                     />
                 )}
                 {label && (
