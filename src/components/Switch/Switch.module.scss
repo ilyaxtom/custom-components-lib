@@ -28,132 +28,130 @@ $pink-switch: #e299af;
 $pink-slider: #c63360;
 
 @mixin wrapper($slider-w, $slider-h, $toggle-rad) {
-  width: $slider-w;
-  height: $slider-h;
-  padding:
-    calc(($toggle-rad - $slider-h) / 2)
-    calc($toggle-rad / 2);
+    width: $slider-w;
+    height: $slider-h;
+    padding: calc(($toggle-rad - $slider-h) / 2) calc($toggle-rad / 2);
 }
 
 @mixin slider($slider-w, $slider-h, $toggle-rad) {
-  width: $slider-w;
-  height: $slider-h;
+    width: $slider-w;
+    height: $slider-h;
 
-  &:before {
-    width: $toggle-rad;
-    height: $toggle-rad;
-  }
+    &:before {
+        width: $toggle-rad;
+        height: $toggle-rad;
+    }
 }
 
 @mixin switch-group-sizes($w, $h) {
-  width: $w;
-  height: $h;
+    width: $w;
+    height: $h;
 }
 
 @mixin switch-colors($switch, $slider) {
-  &:checked + .slider {
-    background-color: $switch;
+    &:checked + .slider {
+        background-color: $switch;
 
-    &:before {
-      background-color: $slider;
+        &:before {
+            background-color: $slider;
+        }
     }
-  }
 }
 
 .switchGroup {
-  display: flex;
-  align-items: center;
-  column-gap: 5px;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
 
-  &.disabled {
-    filter: contrast(60%) brightness(120%) opacity(60%);
-  }
+    &.disabled {
+        filter: contrast(60%) brightness(120%) opacity(60%);
+    }
 }
 
 .wrapper {
-  display: inline-block;
+    display: inline-block;
 
-  &.small {
-    @include wrapper($small-width, $small-height, $small-radius);
-  }
+    &.small {
+        @include wrapper($small-width, $small-height, $small-radius);
+    }
 
-  &.medium {
-    @include wrapper($medium-width, $medium-height, $medium-radius);
-  }
+    &.medium {
+        @include wrapper($medium-width, $medium-height, $medium-radius);
+    }
 
-  &.large {
-    @include wrapper($large-width, $large-height, $large-radius);
-  }
+    &.large {
+        @include wrapper($large-width, $large-height, $large-radius);
+    }
 }
 
 .switch {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 
-  &.default {
-    @include switch-colors($default-switch, $default-slider);
-  }
+    &.default {
+        @include switch-colors($default-switch, $default-slider);
+    }
 
-  &.purple {
-    @include switch-colors($purple-switch, $purple-slider);
-  }
+    &.purple {
+        @include switch-colors($purple-switch, $purple-slider);
+    }
 
-  &.orange {
-    @include switch-colors($orange-switch, $orange-slider);
-  }
+    &.orange {
+        @include switch-colors($orange-switch, $orange-slider);
+    }
 
-  &.grey {
-    @include switch-colors($grey-switch, $grey-slider);
-  }
+    &.grey {
+        @include switch-colors($grey-switch, $grey-slider);
+    }
 
-  &.pink {
-    @include switch-colors($pink-switch, $pink-slider);
-  }
+    &.pink {
+        @include switch-colors($pink-switch, $pink-slider);
+    }
 
-  &:checked + .slider:before {
-    left: 100%;
-    transform: translateX(-50%) translateY(-50%);
-  }
+    &:checked + .slider:before {
+        left: 100%;
+        transform: translateX(-50%) translateY(-50%);
+    }
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #9e9e9e;
-  transition: 0.2s;
-  border-radius: 34px;
-
-  &:before {
     position: absolute;
-    content: "";
+    cursor: pointer;
+    top: 0;
     left: 0;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    background-color: white;
+    right: 0;
+    bottom: 0;
+    background-color: #9e9e9e;
     transition: 0.2s;
-    border-radius: 50%;
-    box-shadow: rgba(94, 94, 96, 0.5) 1px 1px 2px;
-  }
+    border-radius: 34px;
 
-  &.small {
-    @include slider($small-width, $small-height, $small-radius);
-  }
+    &:before {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        background-color: white;
+        transition: 0.2s;
+        border-radius: 50%;
+        box-shadow: rgba(94, 94, 96, 0.5) 1px 1px 2px;
+    }
 
-  &.medium {
-    @include slider($medium-width, $medium-height, $medium-radius);
-  }
+    &.small {
+        @include slider($small-width, $small-height, $small-radius);
+    }
 
-  &.large {
-    @include slider($large-width, $large-height, $large-radius);
-  }
+    &.medium {
+        @include slider($medium-width, $medium-height, $medium-radius);
+    }
+
+    &.large {
+        @include slider($large-width, $large-height, $large-radius);
+    }
 }

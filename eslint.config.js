@@ -26,7 +26,7 @@ export default [
         },
         rules: {
             // ...pluginTs.configs.recommended.rules,
-            "@typescript-eslint/no-unused-vars": "error",
+            '@typescript-eslint/no-unused-vars': 'error',
         },
     },
     {

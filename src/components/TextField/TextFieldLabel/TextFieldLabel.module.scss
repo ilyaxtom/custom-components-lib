@@ -5,57 +5,60 @@ $disabled-color: #aeaeae;
 $error-color: #c54942;
 
 .label {
-  position: absolute;
-  font-size: 1rem;
-  background-color: transparent;
-  padding: 0 4px;
-  transition: 0.2s ease;
-  transform-origin: top left;
-  pointer-events: none;
-  color: $label-color;
+    position: absolute;
+    font-size: 1rem;
+    background-color: transparent;
+    padding: 0 4px;
+    transition: 0.2s ease;
+    transform-origin: top left;
+    pointer-events: none;
+    color: $label-color;
 
-  &.focused {
-    transform: scale(0.75);
-    color: $focus-color;
-  }
-
-  &.valid {
-    transform: scale(0.75);
-  }
-
-  &.outlined {
-    top: 16px;
-    left: 10px;
-    background-color: $background-white;
-
-    &.focused, &.valid {
-      top: -7px;
+    &.focused {
+        transform: scale(0.75);
+        color: $focus-color;
     }
-  }
 
-  &.filled {
-    top: 16px;
-    left: 10px;
-
-    &.focused, &.valid {
-      top: 8px;
+    &.valid {
+        transform: scale(0.75);
     }
-  }
 
-  &.standard {
-    top: 20px;
-    left: -3px;
+    &.outlined {
+        top: 16px;
+        left: 10px;
+        background-color: $background-white;
 
-    &.focused, &.valid {
-      top: 0;
+        &.focused,
+        &.valid {
+            top: -7px;
+        }
     }
-  }
 
-  &.disabled {
-    color: $disabled-color;
-  }
+    &.filled {
+        top: 16px;
+        left: 10px;
 
-  &.error {
-    color: $error-color;
-  }
+        &.focused,
+        &.valid {
+            top: 8px;
+        }
+    }
+
+    &.standard {
+        top: 20px;
+        left: -3px;
+
+        &.focused,
+        &.valid {
+            top: 0;
+        }
+    }
+
+    &.disabled {
+        color: $disabled-color;
+    }
+
+    &.error {
+        color: $error-color;
+    }
 }
