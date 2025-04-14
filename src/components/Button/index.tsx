@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import classes from './Button.module.scss';
 import Loader from './Loader';
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
     color?: 'secondary' | 'success' | 'error';
     variant?: 'text' | 'contained' | 'outlined';
@@ -21,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
     loading,
     size = 'small',
     onClick,
+    ...rest
 }) => {
     const isDisabled = !(typeof disabled === 'undefined');
     const isLoading = !(typeof loading === 'undefined');
@@ -34,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
     );
 
     return (
-        <button className={classList} onClick={() => onClick?.()}>
+        <button {...rest} className={classList} onClick={() => onClick?.()}>
             {isLoading && <Loader />}
             {children}
         </button>
