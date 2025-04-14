@@ -1,40 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './Modal.module.scss';
 import Button from '@/components/Button';
 
 interface ModalProps {
     children?: React.ReactNode;
     style?: React.CSSProperties;
+    open?: boolean;
+    onOpen?: () => void;
+    onClose?: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, style }) => {
+const Modal: React.FC<ModalProps> = ({
+    children,
+    style,
+    open,
+    onOpen,
+    onClose,
+}) => {
     const [modal, setModal] = useState(false);
 
-    const toggleModal = () => {
-        setModal(!modal);
+    const isOpen = open ?? modal;
+
+    const handleOpen = () => {
+        if (onOpen) {
+            onOpen();
+            return;
+        }
+        setModal(true);
     };
 
-    // if (modal) {
-    //     document.body.style.overflowY = 'hidden';
-    // } else {
-    //     document.body.style.overflowY = 'auto';
-    // }
+    const handleClose = () => {
+        if (onClose) {
+            onClose();
+            return;
+        }
+        setModal(false);
+    };
+
+    useEffect(() => {
+        document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+    }, [isOpen]);
 
     return (
         <>
-            <Button variant={'text'} onClick={toggleModal}>
+            <Button
+                data-testid="open-button"
+                variant={'text'}
+                onClick={handleOpen}
+            >
                 Open
             </Button>
 
-            {modal && (
-                <div className={classes.modal}>
+            {isOpen && (
+                <div data-testid="modal" className={classes.modal}>
                     <div
-                        onClick={toggleModal}
+                        onClick={handleClose}
                         className={classes.overlay}
                     ></div>
                     <div style={style} className={classes.modalContent}>
                         {children}
-                        <Button variant={'text'} onClick={toggleModal}>
+                        <Button
+                            data-testid="close-button"
+                            variant={'text'}
+                            onClick={handleClose}
+                        >
                             Close
                         </Button>
                     </div>
