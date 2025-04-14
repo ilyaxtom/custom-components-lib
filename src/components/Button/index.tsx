@@ -35,7 +35,13 @@ const Button: React.FC<ButtonProps> = ({
     );
 
     return (
-        <button {...rest} className={classList} onClick={() => onClick?.()}>
+        <button
+            data-testid={'button'}
+            {...rest}
+            className={classList}
+            onClick={() => onClick?.()}
+            disabled={isDisabled}
+        >
             {isLoading && <Loader />}
             {children}
         </button>
