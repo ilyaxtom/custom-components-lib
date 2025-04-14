@@ -3,8 +3,6 @@ import classes from './Checkbox.module.scss';
 import classNames from 'classnames';
 import Label from '../Label';
 
-// Todo: Fix checked, disabled styles
-
 interface CheckboxProps {
     checked?: boolean;
     label?: string;
