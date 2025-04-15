@@ -1,51 +1,41 @@
 import js from '@eslint/js';
-import parser from '@typescript-eslint/parser';
-import pluginTs from '@typescript-eslint/eslint-plugin';
-import pluginReact from 'eslint-plugin-react';
-import pluginReactHooks from 'eslint-plugin-react-hooks';
-import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import eslintReact from 'eslint-plugin-react';
+import eslintReactHooks from 'eslint-plugin-react-hooks';
 
-/** @type {import("eslint").Linter.FlatConfig[]} */
-export default [
+/** @type {import('eslint').Linter.FlatConfig[]} */
+export default tseslint.config(
     {
-        ignores: ['node_modules', 'dist', 'build'],
+        plugins: {
+            '@typescript-eslint': tseslint.plugin,
+            react: eslintReact,
+            'react-hooks': eslintReactHooks,
+        },
+    },
+    {
+        ignores: ['dist', 'build', 'node_modules'],
     },
     js.configs.recommended,
+    ...tseslint.configs.recommended,
     {
-        files: ['**/*.ts', '**/*.tsx'],
         languageOptions: {
-            parser: parser,
-            parserOptions: {
-                ecmaVersion: 'latest',
-                sourceType: 'module',
-                ecmaFeatures: { jsx: true },
+            globals: {
+                ...globals.browser,
+                ...globals.node,
+                ...globals.es2020,
             },
-        },
-        plugins: {
-            '@typescript-eslint': pluginTs,
-        },
-        rules: {
-            // ...pluginTs.configs.recommended.rules,
-            '@typescript-eslint/no-unused-vars': 'error',
+            parserOptions: {
+                project: ['tsconfig.json'],
+            },
         },
     },
     {
-        files: ['**/*.jsx', '**/*.tsx'],
-        plugins: {
-            react: pluginReact,
-            'react-hooks': pluginReactHooks,
-            'jsx-a11y': pluginJsxA11y,
-        },
+        files: ['*.ts', '*.tsx'],
         rules: {
-            // ...pluginReact.configs.recommended.rules,
-            // ...pluginReactHooks.configs.recommended.rules,
-            // ...pluginJsxA11y.configs.recommended.rules,
-            // 'react/react-in-jsx-scope': 'off',
+            'no-unused-vars': 'off',
+            '@typescript-eslint/no-unused-vars': 'off',
+            'prefer-const': 'error',
         },
-        settings: {
-            react: {
-                version: 'detect',
-            },
-        },
-    },
-];
+    }
+);
