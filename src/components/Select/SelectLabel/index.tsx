@@ -11,8 +11,8 @@ interface SelectLabelProps {
 
 const SelectLabel: React.FC<SelectLabelProps> = ({
     text,
-    isError,
     isDisabled,
+    isError,
     required,
 }) => {
     const isRequired = required !== undefined;

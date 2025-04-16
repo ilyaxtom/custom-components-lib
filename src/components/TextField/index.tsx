@@ -10,15 +10,15 @@ interface TextFieldProps {
     type?: 'text' | 'number' | 'password';
     label?: string;
     helperText?: string;
-    readonly?: boolean;
     value?: string;
-    onChange?: (e: ChangeEvent<TextFieldElements>) => void;
     required?: boolean;
+    readonly?: boolean;
     disabled?: boolean;
     error?: boolean;
     multiline?: boolean;
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
     textareaProps?: React.InputHTMLAttributes<HTMLTextAreaElement>;
+    onChange?: (e: ChangeEvent<TextFieldElements>) => void;
 }
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -36,7 +36,7 @@ const TextField: React.FC<TextFieldProps> = ({
     inputProps,
     textareaProps,
 }) => {
-    const isReadonly = readonly !== undefined;
+    const isReadonly = Boolean(readonly);
     const isDisabled = Boolean(disabled);
     const [isFocused, setIsFocused] = useState(false);
     const fieldRef = useRef<HTMLDivElement>(null);

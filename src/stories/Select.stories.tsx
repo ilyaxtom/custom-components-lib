@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 import { ComponentProps } from 'react';
 import Select from '@/components/Select';
 
@@ -33,7 +32,7 @@ const meta: Meta<StoryProps> = {
                 type: 'select',
             },
         },
-        size: {
+        sz: {
             options: ['small', 'standard'],
             control: {
                 type: 'select',
@@ -78,7 +77,7 @@ export const Standard: Story = {
 
 export const SmallSize: Story = {
     args: {
-        size: 'small',
+        sz: 'small',
     },
     render: ({ options, ...args }) => {
         return <Select options={options} {...args} />;
@@ -87,7 +86,7 @@ export const SmallSize: Story = {
 
 export const StandardSize: Story = {
     args: {
-        size: 'standard',
+        sz: 'standard',
     },
     render: ({ options, ...args }) => {
         return <Select options={options} {...args} />;

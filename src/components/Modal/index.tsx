@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import classes from './Modal.module.scss';
 import Button from '@/components/Button';
 
-interface ModalProps {
+interface ModalProps extends React.HTMLProps<HTMLDivElement> {
     children?: React.ReactNode;
-    style?: React.CSSProperties;
     open?: boolean;
     onOpen?: () => void;
     onClose?: () => void;
@@ -12,10 +11,10 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({
     children,
-    style,
     open,
     onOpen,
     onClose,
+    ...rest
 }) => {
     const [modal, setModal] = useState(false);
 
@@ -57,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({
                         onClick={handleClose}
                         className={classes.overlay}
                     ></div>
-                    <div style={style} className={classes.modalContent}>
+                    <div className={classes.modalContent} {...rest}>
                         {children}
                         <Button
                             data-testid="close-button"

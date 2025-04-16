@@ -22,7 +22,7 @@ const meta: Meta<StoryProps> = {
                 type: 'select',
             },
         },
-        size: {
+        sz: {
             options: ['small', 'medium', 'large'],
             control: {
                 type: 'select',
@@ -71,7 +71,7 @@ export const Contained: Story = {
 export const Small: Story = {
     args: {
         buttonText: 'Hello',
-        size: 'small',
+        sz: 'small',
     },
     render: ({ buttonText, ...args }) => {
         return <Button {...args}>{buttonText}</Button>;
@@ -81,7 +81,7 @@ export const Small: Story = {
 export const Medium: Story = {
     args: {
         buttonText: 'Hello',
-        size: 'medium',
+        sz: 'medium',
     },
     render: ({ buttonText, ...args }) => {
         return <Button {...args}>{buttonText}</Button>;
@@ -91,7 +91,7 @@ export const Medium: Story = {
 export const Large: Story = {
     args: {
         buttonText: 'Hello',
-        size: 'large',
+        sz: 'large',
     },
     render: ({ buttonText, ...args }) => {
         return <Button {...args}>{buttonText}</Button>;

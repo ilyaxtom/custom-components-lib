@@ -3,28 +3,27 @@ import classes from './Switch.module.scss';
 import Label from '../Label';
 import classNames from 'classnames';
 
-interface SwitchProps {
-    size?: 'small' | 'medium' | 'large';
+interface SwitchProps extends React.HTMLProps<HTMLInputElement> {
+    sz?: 'small' | 'medium' | 'large';
+    color?: 'default' | 'purple' | 'orange' | 'grey' | 'pink';
+    label?: string;
     disabled?: boolean;
     defaultChecked?: boolean;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    label?: string;
     required?: boolean;
-    color?: 'default' | 'purple' | 'orange' | 'grey' | 'pink';
 }
 
 const Switch: React.FC<SwitchProps> = ({
-    size = 'small',
+    sz = 'small',
+    color = 'default',
+    label,
     disabled,
     defaultChecked,
-    onChange,
-    label,
     required,
-    color = 'default',
+    onChange,
 }) => {
+    const isDisabled = Boolean(disabled);
+    const isControlled = Boolean(onChange);
     const [isChecked, setIsChecked] = React.useState(Boolean(defaultChecked));
-    const isDisabled = disabled !== undefined;
-    const isControlled = onChange !== undefined;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.checked;
@@ -34,12 +33,12 @@ const Switch: React.FC<SwitchProps> = ({
         setIsChecked(value);
     };
 
-    const wrapperClasses = `${classes.wrapper} ${classes[size]}`;
-    const sliderClasses = `${classes.slider} ${classes[size]}`;
-    const inputClasses = `${classes.input} ${classes[color]}`;
+    const wrapperClasses = classNames(classes.wrapper, classes[sz]);
+    const sliderClasses = classNames(classes.slider, classes[sz]);
+    const inputClasses = classNames(classes.input, classes[color]);
     const switchClasses = classNames(
         classes.switchGroup,
-        classes[size],
+        classes[sz],
         isDisabled && classes.disabled
     );
 
@@ -57,7 +56,7 @@ const Switch: React.FC<SwitchProps> = ({
                     <span className={sliderClasses}></span>
                 </label>
             </div>
-            {label && <Label required={required} size={size} text={label} />}
+            {label && <Label required={required} sz={sz} text={label} />}
         </div>
     );
 };

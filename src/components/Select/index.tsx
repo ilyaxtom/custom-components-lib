@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import classes from './Select.module.scss';
 import Dropdown, { Option } from './Dropdown';
 import classNames from 'classnames';
@@ -8,31 +8,31 @@ import HelperText from '@/components/Select/HelperText';
 
 interface SelectProps {
     variant?: 'outlined' | 'filled' | 'standard';
+    sz?: 'small' | 'standard';
     options?: Option[];
     selectedId?: number;
-    onChange?: (id: number) => void;
     label?: string;
     helperText?: string;
-    size?: 'small' | 'standard';
     disabled?: boolean;
     error?: boolean;
     required?: boolean;
+    onChange?: (id: number) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
     variant = 'outlined',
+    sz,
     options,
     selectedId,
-    onChange,
     label,
     helperText,
-    size,
     disabled,
     error,
     required,
+    onChange,
 }) => {
-    const isDisabled = disabled !== undefined;
-    const isError = error !== undefined;
+    const isDisabled = Boolean(disabled);
+    const isError = Boolean(error);
     const [isOpen, setIsOpen] = React.useState(false);
     const [selected, setSelected] = React.useState<number | null>(
         selectedId ?? null
@@ -79,7 +79,7 @@ const Select: React.FC<SelectProps> = ({
         classes.select,
         selectedTitle.length !== 0 && classes.valid,
         isFocused && classes.focus,
-        size === 'small' && classes.small
+        sz === 'small' && classes.small
     );
     const iconClasses = classNames(
         classes.inputIcon,

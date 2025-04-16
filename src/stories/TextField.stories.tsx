@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 import { ComponentProps } from 'react';
 
 import TextField from '@/components/TextField/index';
@@ -83,6 +82,15 @@ export const Number: Story = {
 export const Password: Story = {
     args: {
         type: 'password',
+    },
+    render: ({ ...args }) => {
+        return <TextField {...args} />;
+    },
+};
+
+export const Multiline: Story = {
+    args: {
+        multiline: true,
     },
     render: ({ ...args }) => {
         return <TextField {...args} />;

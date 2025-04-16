@@ -15,15 +15,12 @@ const meta: Meta<StoryProps> = {
                 type: 'select',
             },
         },
-        size: {
+        sz: {
             options: ['small', 'medium', 'large'],
             control: {
                 type: 'select',
             },
         },
-    },
-    args: {
-        onChange: fn(),
     },
 };
 
@@ -33,7 +30,7 @@ type Story = StoryObj<StoryProps>;
 
 export const Small: Story = {
     args: {
-        size: 'small',
+        sz: 'small',
     },
     render: ({ ...args }) => {
         return <Checkbox {...args} />;
@@ -42,7 +39,7 @@ export const Small: Story = {
 
 export const Medium: Story = {
     args: {
-        size: 'medium',
+        sz: 'medium',
     },
     render: ({ ...args }) => {
         return <Checkbox {...args} />;
@@ -51,7 +48,7 @@ export const Medium: Story = {
 
 export const Large: Story = {
     args: {
-        size: 'large',
+        sz: 'large',
     },
     render: ({ ...args }) => {
         return <Checkbox {...args} />;

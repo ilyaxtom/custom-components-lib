@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 import { ComponentProps } from 'react';
 import Switch from '@/components/Switch/index';
 
@@ -8,7 +7,7 @@ type StoryProps = ComponentProps<typeof Switch>;
 const meta: Meta<StoryProps> = {
     component: Switch,
     argTypes: {
-        size: {
+        sz: {
             options: ['small', 'medium', 'large'],
             control: {
                 type: 'select',
@@ -23,7 +22,7 @@ type Story = StoryObj<StoryProps>;
 
 export const Small: Story = {
     args: {
-        size: 'small',
+        sz: 'small',
     },
     render: ({ ...args }) => {
         return <Switch {...args} />;
@@ -32,7 +31,7 @@ export const Small: Story = {
 
 export const Medium: Story = {
     args: {
-        size: 'medium',
+        sz: 'medium',
     },
     render: ({ ...args }) => {
         return <Switch {...args} />;
@@ -41,7 +40,7 @@ export const Medium: Story = {
 
 export const Large: Story = {
     args: {
-        size: 'large',
+        sz: 'large',
     },
     render: ({ ...args }) => {
         return <Switch {...args} />;

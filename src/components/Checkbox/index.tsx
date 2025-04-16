@@ -3,50 +3,51 @@ import classes from './Checkbox.module.scss';
 import classNames from 'classnames';
 import Label from '../Label';
 
-interface CheckboxProps {
-    checked?: boolean;
+interface CheckboxProps extends React.HTMLProps<HTMLInputElement> {
+    sz?: 'small' | 'medium' | 'large';
+    color?: 'blue' | 'purple' | 'green' | 'grey' | 'pink';
     label?: string;
     required?: boolean;
-    size?: 'small' | 'medium' | 'large';
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     disabled?: boolean;
-    color?: 'blue' | 'purple' | 'green' | 'grey' | 'pink';
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
+    sz = 'medium',
+    color = 'blue',
+    label,
     checked,
     required,
-    label,
-    size = 'medium',
-    onChange,
     disabled,
-    color = 'blue',
+    onChange,
+    ...rest
 }) => {
     const [isChecked, setIsChecked] = React.useState(Boolean(checked));
-    const isControlled = onChange !== undefined;
-    const isDisabled = disabled !== undefined;
+    const isControlled = checked !== undefined;
+    const isDisabled = Boolean(disabled);
 
-    const isCheckboxChecked = isControlled ? checked : isChecked;
+    const isCheckboxChecked = isControlled ? Boolean(checked) : isChecked;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.checked;
-        if (isControlled) {
-            onChange?.(e);
+        if (!isControlled) {
+            setIsChecked(value);
         }
-        setIsChecked(value);
+        onChange?.(e);
     };
 
     const containerClasses = classNames(
         classes.container,
-        classes[size],
+        classes[sz],
         isDisabled && classes.disabled
     );
 
     const checkmarkClasses = classNames(classes.checkmark, classes[color]);
+
     const checkboxContainerClasses = classNames(
         classes.checkboxContainer,
-        classes[size]
+        classes[sz]
     );
+
     const wrapperClasses = classNames(
         classes.wrapper,
         isDisabled && classes.disabled
@@ -62,6 +63,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
                         checked={isCheckboxChecked}
                         onChange={handleChange}
                         disabled={isDisabled}
+                        {...rest}
                     />
                     <span className={checkmarkClasses}></span>
                 </label>
@@ -72,7 +74,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
                     text={label}
                     required={required}
                     disabled={isDisabled}
-                    size={size}
+                    sz={sz}
                 />
             )}
         </div>

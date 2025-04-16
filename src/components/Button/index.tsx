@@ -5,42 +5,41 @@ import Loader from './Loader';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
-    color?: 'secondary' | 'success' | 'error';
     variant?: 'text' | 'contained' | 'outlined';
+    sz?: 'small' | 'medium' | 'large';
+    color?: 'secondary' | 'success' | 'error';
     disabled?: boolean;
     loading?: boolean;
-    size?: 'small' | 'medium' | 'large';
-    onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
     children,
     variant = 'outlined',
-    disabled,
+    sz = 'small',
     color,
+    disabled,
     loading,
-    size = 'small',
     onClick,
     ...rest
 }) => {
-    const isDisabled = !(typeof disabled === 'undefined');
-    const isLoading = !(typeof loading === 'undefined');
+    const isDisabled = Boolean(disabled);
+    const isLoading = Boolean(loading);
 
     const classList = classNames(
         classes.button,
         classes[variant],
         isDisabled || isLoading ? classes.disabled : '',
         color ? classes[color] : '',
-        classes[size]
+        classes[sz]
     );
 
     return (
         <button
             data-testid={'button'}
-            {...rest}
             className={classList}
-            onClick={() => onClick?.()}
+            onClick={(e) => onClick?.(e)}
             disabled={isDisabled}
+            {...rest}
         >
             {isLoading && <Loader />}
             {children}

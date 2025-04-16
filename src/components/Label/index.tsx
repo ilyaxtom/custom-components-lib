@@ -3,17 +3,17 @@ import classes from './Label.module.scss';
 import classNames from 'classnames';
 
 interface LabelProps {
+    sz: 'small' | 'medium' | 'large';
     text: string;
     required?: boolean;
     disabled?: boolean;
-    size: 'small' | 'medium' | 'large';
 }
 
-const Label: React.FC<LabelProps> = ({ text, required, disabled, size }) => {
+const Label: React.FC<LabelProps> = ({ text, required, disabled, sz }) => {
     const labelText = `${text}${required ? ' *' : ''}`;
     const labelClasses = classNames(
         classes.label,
-        classes[size],
+        classes[sz],
         disabled && classes.disable
     );
 
