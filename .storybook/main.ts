@@ -20,6 +20,10 @@ const config: StorybookConfig = {
             include: path.resolve(__dirname, '../'),
         });
 
+        config.resolve.alias = {
+            '@': path.resolve(__dirname, '../src'),
+        };
+
         return config;
     },
 };

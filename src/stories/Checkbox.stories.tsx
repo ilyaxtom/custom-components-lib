@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { ComponentProps } from 'react';
 
-import Checkbox from '../components/Checkbox/index';
+import Checkbox from '@/components/Checkbox/index';
 
 type StoryProps = ComponentProps<typeof Checkbox>;
 
