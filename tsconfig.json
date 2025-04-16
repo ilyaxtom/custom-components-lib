@@ -23,5 +23,5 @@
             "esModuleInterop": true
         }
     },
-    "include": ["src", "jest.setup.ts", "**/*.test.ts", "**/*.test.tsx"]
+    "include": ["src", "jest.setup.ts", "**/*.test.ts", "**/*.test.tsx", "config"]
 }
