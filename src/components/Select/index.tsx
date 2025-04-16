@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import classes from './Select.module.scss';
-import Dropdown, { Option } from './Dropdown';
+import Dropdown from './Dropdown';
 import classNames from 'classnames';
 import { GoTriangleDown } from 'react-icons/go';
 import SelectLabel from './SelectLabel';
@@ -9,41 +9,31 @@ import HelperText from '@/components/Select/HelperText';
 interface SelectProps {
     variant?: 'outlined' | 'filled' | 'standard';
     sz?: 'small' | 'standard';
-    options?: Option[];
-    selectedId?: number;
+    selectedTitle?: string;
     label?: string;
     helperText?: string;
     disabled?: boolean;
     error?: boolean;
     required?: boolean;
-    onChange?: (id: number) => void;
+    children?: React.ReactNode;
 }
 
 const Select: React.FC<SelectProps> = ({
     variant = 'outlined',
     sz,
-    options,
-    selectedId,
+    selectedTitle,
     label,
     helperText,
     disabled,
     error,
     required,
-    onChange,
+    children,
 }) => {
     const isDisabled = Boolean(disabled);
     const isError = Boolean(error);
     const [isOpen, setIsOpen] = React.useState(false);
-    const [selected, setSelected] = React.useState<number | null>(
-        selectedId ?? null
-    );
     const [isFocused, setIsFocused] = React.useState(false);
     const ref = React.useRef<HTMLDivElement>(null);
-
-    const selectedTitle = useMemo(() => {
-        const option = options.find((o) => o.id === selected);
-        return option ? option.title : '';
-    }, [options, selected]);
 
     useEffect(() => {
         const handleClick = (event: Event) => {
@@ -62,13 +52,6 @@ const Select: React.FC<SelectProps> = ({
         setIsFocused(true);
     };
 
-    const selectOption = (id: number) => {
-        if (!onChange) {
-            setSelected(id);
-        }
-        onChange?.(id);
-    };
-
     const selectGroupClasses = classNames(
         classes.selectGroup,
         classes[variant],
@@ -77,7 +60,7 @@ const Select: React.FC<SelectProps> = ({
     );
     const selectClasses = classNames(
         classes.select,
-        selectedTitle.length !== 0 && classes.valid,
+        selectedTitle && classes.valid,
         isFocused && classes.focus,
         sz === 'small' && classes.small
     );
@@ -106,13 +89,7 @@ const Select: React.FC<SelectProps> = ({
                     required={required}
                 />
             )}
-            {isOpen && (
-                <Dropdown
-                    options={options}
-                    selectFn={selectOption}
-                    selectedId={selected}
-                />
-            )}
+            {isOpen && <Dropdown>{children}</Dropdown>}
             {helperText && (
                 <HelperText
                     text={helperText}
