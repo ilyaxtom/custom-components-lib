@@ -11,6 +11,11 @@ type StoryProps = ComponentProps<typeof Button> & {
 const meta: Meta<StoryProps> = {
     component: Button,
     argTypes: {
+        children: {
+            table: {
+                disable: true,
+            },
+        },
         variant: {
             options: ['text', 'contained', 'outlined'],
             control: {
@@ -37,7 +42,6 @@ export const Outlined: Story = {
     args: {
         buttonText: 'Hello',
         variant: 'outlined',
-        size: 'medium',
     },
     render: ({ buttonText, ...args }) => {
         return <Button {...args}>{buttonText}</Button>;
@@ -48,7 +52,46 @@ export const Text: Story = {
     args: {
         buttonText: 'Hello',
         variant: 'text',
+    },
+    render: ({ buttonText, ...args }) => {
+        return <Button {...args}>{buttonText}</Button>;
+    },
+};
+
+export const Contained: Story = {
+    args: {
+        buttonText: 'Hello',
+        variant: 'contained',
+    },
+    render: ({ buttonText, ...args }) => {
+        return <Button {...args}>{buttonText}</Button>;
+    },
+};
+
+export const Small: Story = {
+    args: {
+        buttonText: 'Hello',
+        size: 'small',
+    },
+    render: ({ buttonText, ...args }) => {
+        return <Button {...args}>{buttonText}</Button>;
+    },
+};
+
+export const Medium: Story = {
+    args: {
+        buttonText: 'Hello',
         size: 'medium',
+    },
+    render: ({ buttonText, ...args }) => {
+        return <Button {...args}>{buttonText}</Button>;
+    },
+};
+
+export const Large: Story = {
+    args: {
+        buttonText: 'Hello',
+        size: 'large',
     },
     render: ({ buttonText, ...args }) => {
         return <Button {...args}>{buttonText}</Button>;
