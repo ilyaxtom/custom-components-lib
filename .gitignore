@@ -1,3 +1,5 @@
 node_modules
 .idea
 *storybook.log
+src/App.tsx
+src/index.tsx
