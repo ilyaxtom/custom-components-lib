@@ -61,7 +61,7 @@ describe('Checkbox', () => {
     });
 
     test('applies correct size class based on `size` prop', () => {
-        render(<Checkbox size="large" label="Accept terms and conditions" />);
+        render(<Checkbox sz="large" label="Accept terms and conditions" />);
         const checkbox = screen.getByRole('checkbox');
         const container = checkbox.closest('label');
         expect(container).toHaveClass(classes.large);

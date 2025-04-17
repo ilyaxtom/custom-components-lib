@@ -15,7 +15,10 @@
         "paths": {
             "@/*": ["./src/*"]
         },
-        "types": ["jest", "@testing-library/jest-dom"]
+        "types": ["jest", "@testing-library/jest-dom"],
+        "declaration": true,
+        "declarationDir": "dist",
+        "emitDeclarationOnly": false
     },
     "ts-node": {
         "compilerOptions": {

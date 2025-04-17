@@ -22,7 +22,7 @@ describe('Button', () => {
     });
 
     test('applies correct class for size', () => {
-        render(<Button size="large">Large</Button>);
+        render(<Button sz="large">Large</Button>);
         const button = screen.getByTestId('button');
         expect(button).toHaveClass(classes.large);
     });
