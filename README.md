@@ -109,24 +109,29 @@ Represents a single item inside a `Select` component. Uses a generic `id` and no
 - `onChange`: `(id: T) => void` – callback triggered when the item is selected
 
 ```javascript
-<Select
-  variant="outlined"
-  sz="small"
-  label="Favorite fruit"
-  selectedTitle={selectedLabel}
-  helperText="Pick one"
-  required
->
-  <SelectItem id="apple" selected={selectedId === 'apple'} onChange={setSelectedId}>
-    Apple
-  </SelectItem>
-  <SelectItem id="banana" selected={selectedId === 'banana'} onChange={setSelectedId}>
-    Banana
-  </SelectItem>
-  <SelectItem id="cherry" selected={selectedId === 'cherry'} onChange={setSelectedId}>
-    Cherry
-  </SelectItem>
-</Select>
+const [selectedId, setSelectedId] = useState<number | null>(null);
+
+const optionsList = options.map(({ id, title }) => (
+    <SelectItem<number>
+        key={id}
+        id={id}
+        selected={selectedId === id}
+        onChange={setSelectedId}
+        >
+        {title}
+    </SelectItem>
+));
+
+const selectedTitle = useMemo(() => {
+    const option = options.find((o) => o.id === selectedId);
+    return option ? option.title : '';
+}, [selectedId]);
+
+return (
+    <Select selectedTitle={selectedTitle}>
+        {optionsList}
+    </Select>
+);
 ```
 
 ### Modal
